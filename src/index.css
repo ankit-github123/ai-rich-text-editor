@@ -1,1 +1,11 @@
-  
+ul {
+  list-style: initial;
+  left: 18px;
+  position: relative;
+}
+
+ol {
+  list-style: decimal;
+  left: 18px;
+  position: relative;
+}
