@@ -107,7 +107,7 @@ function RichTextEditor() {
           handleInput();
           updateActiveCommands();
         }}
-        className="border-2 mx-5 font-sans border-[#d5d5d3] rounded-sm h-[40vh] px-2 pt-3 pb-2  overflow-y-auto focus:outline-none focus:bg-white"
+        className="border-2 mx-5 font-sans border-[#d5d5d3] rounded-sm h-[40vh] px-2 pt-3 pb-2  overflow-y-auto focus:outline-none focus:bg-white overflow-x-hidden break-words"
       ></div>
       <p>HTML Output:</p>
       <pre>{content}</pre>
