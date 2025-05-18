@@ -8,12 +8,14 @@ export default function useEditorCommands({
   setActiveCommands,
   loading,
   setLoading,
+  setPromptInputValue,
 }: {
   editorRef: any;
   setContent: (content: string) => void;
   setActiveCommands: (commands: string[]) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  setPromptInputValue: (value: string) => void;
 }) {
   const updateActiveCommands = useCallback(() => {
     const commands = [
@@ -91,6 +93,10 @@ export default function useEditorCommands({
     input.placeholder = "Type a prompt...";
     input.className =
       "bg-transparent border-b italic font-medium border-[rgba(0,0,0,0.01)] outline-none text-sm placeholder:text-gray-400 w-[92%] px-1 py-0.5 text-[#c63efc]";
+    input.oninput = (e) => {
+      setPromptInputValue((e.target as HTMLInputElement).value);
+    };
+
     input.onkeydown = async (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -101,6 +107,7 @@ export default function useEditorCommands({
           const response = await getAIResponse(value);
           console.log("API response:", response);
           insertApiResponse(response as string);
+          setPromptInputValue("");
         } finally {
           input.remove();
           setLoading(false);

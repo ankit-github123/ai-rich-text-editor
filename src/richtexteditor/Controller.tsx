@@ -12,7 +12,7 @@ import {
   AiOutlineAlignCenter,
   AiOutlineAlignRight,
 } from "react-icons/ai";
-import { FiAlignJustify } from "react-icons/fi";
+import { FiAlignJustify, FiZap } from "react-icons/fi";
 import CustomSelect from "../custom/Select";
 import { useState } from "react";
 import { fontNames, fontSizes } from "../constants";
@@ -25,9 +25,19 @@ interface ControllerProps {
   apiTrigger: () => void;
   insertPromptInput: () => void;
   loading: boolean;
+  generatePrompt: () => void;
+  promptInputValue: string;
 }
 
-const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput, loading }: ControllerProps) => {
+const Controller = ({
+  formatText,
+  activeCommands,
+  apiTrigger,
+  insertPromptInput,
+  loading,
+  generatePrompt,
+  promptInputValue,
+}: ControllerProps) => {
   const isActive = (command: string) => activeCommands.includes(command);
   const fontSize = extractFontSizeFromArray(activeCommands);
   const fontName = extractFontNameFromArray(activeCommands);
@@ -46,7 +56,7 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
   return (
     <div className="flex justify-between items-center mx-[0px] sm:mx-[5px] md:mx-[15px] lg:mx-[22px] px-3 py-2 rounded-xl">
       <div className="flex-1 overflow-x-auto whitespace-nowrap pr-3 no-scrollbar  scrollbar-hide">
-        <div id="controller" className="flex gap-2.5 mt-3 mb-3 w-max">
+        <div id="controller" className="flex gap-[9px] mt-3 mb-3 w-max">
           <CustomSelect options={fontSizes} value={fontSize} onChange={handleFontSizeChange} />
           <CustomSelect options={fontNames} value={fontName} onChange={handleFontNameChange} />
           <div className="border border-l my-1 border-[#e6e5e3]" />
@@ -116,12 +126,14 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
               <AiOutlineAlignRight />
             </button>
           </Tooltip>
-          <Tooltip content={"Align Justify"} position="bottom">
+          <div className="border border-l my-1 border-[#e6e5e3]" />
+
+          <Tooltip content={"Prompt Input"} position="bottom">
             <button
-              onClick={() => formatText("justifyFull")}
+              onClick={() => insertPromptInput()}
               className={`${buttonStyle} ${isActive("justifyFull") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
             >
-              <FiAlignJustify />
+              <FiZap />
             </button>
           </Tooltip>
         </div>
@@ -129,8 +141,8 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
 
       <div id="generative" className="flex-shrink-0 ml-4 mt-3 mb-3">
         <button
-          disabled={loading}
-          onClick={insertPromptInput}
+          disabled={loading || !promptInputValue.trim()}
+          onClick={generatePrompt}
           className="shiny-button bg-amber-400 flex items-center gap-1.5 text-white font-bold border-2 border-[#f5b039] py-1.5 pl-2.5 font-mono pr-3 rounded-full drop-shadow-xl hover:brightness-105 transition-all duration-200"
         >
           <img src="/ai.png" className="w-6" />
