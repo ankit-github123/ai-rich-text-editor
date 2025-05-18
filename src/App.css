@@ -36,7 +36,7 @@ body {
 
 .shiny-button {
   position: relative;
-  padding: 6px 18px;
+
   font-size: 14px;
   color: #fff;
   background: linear-gradient(135deg, #f5b039, #6e44ff);
@@ -46,7 +46,7 @@ body {
   cursor: pointer;
   overflow: hidden;
   z-index: 0;
-  font-weight: bold;
+  font-weight: bolder;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 

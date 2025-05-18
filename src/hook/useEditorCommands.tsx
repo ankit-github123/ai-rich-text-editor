@@ -1,4 +1,6 @@
 import { useCallback } from "react";
+import { removeQuotes } from "../utils";
+import { getAIResponse } from "../api";
 
 export default function useEditorCommands({
   editorRef,
@@ -26,6 +28,13 @@ export default function useEditorCommands({
     const active = commands.filter((cmd) => document.queryCommandState(cmd));
     console.log("Active commands:", active);
     const selection = document.getSelection();
+    const fontSize = document.queryCommandValue("fontSize");
+    const fontName = removeQuotes(document.queryCommandValue("fontName"));
+    console.log("Font size:", fontSize);
+    console.log("Font name:", fontName);
+    if (fontSize) active.push(`fontSize-${fontSize}`);
+    if (fontName) active.push(`fontName-${fontName.toString()}`);
+
     const anchorNode = selection?.anchorNode;
     if (anchorNode) {
       const parentElement = anchorNode.nodeType === 3 ? anchorNode.parentElement : (anchorNode as HTMLElement);
@@ -67,7 +76,7 @@ export default function useEditorCommands({
     const range = selection?.getRangeAt(0);
     if (!range) return;
 
-    editor.innerText = editor.innerText.replace("!!!", "");
+    editor.innerText = editor.innerText.replace("#prompt", "");
 
     const newRange = document.createRange();
     newRange.selectNodeContents(editor);
@@ -78,14 +87,14 @@ export default function useEditorCommands({
     const input = document.createElement("input");
     input.type = "text";
     input.placeholder = "Type a prompt...";
-    input.className = "border focus:outline-none italic w-full";
+    input.className =
+      "bg-transparent border-b border-[rgba(0,0,0,0.01)] outline-none text-sm placeholder:text-gray-400 w-[92%] px-1 py-0.5";
     input.onkeydown = async (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         const value = input.value;
-        const response = await new Promise((resolve) =>
-          setTimeout(() => resolve("🌟 API response for: " + value), 1000)
-        );
+        const response = await getAIResponse(value);
+        console.log("API response:", response);
         insertApiResponse(response as string);
       }
     };
@@ -142,7 +151,9 @@ export default function useEditorCommands({
   );
 
   const simulateApiInsert = () => {
-    insertApiResponse("<div><ul><li>Item 1</li><li>Item 2</li></ul>This is text from API</div>");
+    insertApiResponse(
+      "<div>🌤 <b>Good morning, sunshine!</b> <br><i>Hope your day is as bright as your smile</i> 🌟<br>Can’t wait to hear all about it later! ☕💛<br>P.S. You’ve got this! 🐾✨</div>"
+    );
   };
 
   return { insertPromptInput, insertApiResponse, simulateApiInsert, formatText, updateActiveCommands };

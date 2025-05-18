@@ -17,17 +17,26 @@ function RichTextEditor() {
   const handleInput = () => {
     if (!editorRef.current) return;
     const html = editorRef.current.innerHTML;
-    if (html.includes("!!!")) {
+    if (html.includes("#prompt")) {
       insertPromptInput();
     } else {
       setContent(html);
     }
   };
 
+  const handleGenerateClick = () => {
+    editorRef.current.focus();
+    insertPromptInput();
+  };
   return (
     <div className="">
-      {/* <button onClick={simulateApiInsert}>Insert API Response</button> */}
-      <Controller formatText={formatText} activeCommands={activeCommands} apiTrigger={simulateApiInsert} />
+      <button onClick={simulateApiInsert}>Insert API Response</button>
+      <Controller
+        formatText={formatText}
+        activeCommands={activeCommands}
+        apiTrigger={simulateApiInsert}
+        insertPromptInput={handleGenerateClick}
+      />
       <EditorArea editorRef={editorRef} handleInput={handleInput} updateActiveCommands={updateActiveCommands} />
       {/* <p className="overflow-auto break-words">HTML Output:</p>
       <pre>{content}</pre> */}
