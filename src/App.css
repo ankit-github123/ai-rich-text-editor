@@ -144,7 +144,7 @@ body {
     box-shadow: 0 0 0px 0px rgba(165, 108, 255, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px 10px rgba(165, 108, 255, 0.5);
+    box-shadow: 0 0 25px 15px rgba(165, 108, 255, 0.5);
   }
   100% {
     box-shadow: 0 0 0px 0px rgba(165, 108, 255, 0.3);
@@ -170,4 +170,15 @@ body {
 .control-button:hover {
   background-color: #ddd6fe; /* Brighter blue on hover */
   transform: scale(1.08);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }

@@ -4,13 +4,13 @@ import EditorArea from "./EditorArea";
 import useEditorCommands from "../hook/useEditorCommands";
 import useSelectionEffect from "../hook/useSelectionEffect";
 
-function RichTextEditor() {
+function RichTextEditor({ loading, setLoading }: { loading: boolean; setLoading: (loading: boolean) => void }) {
   const editorRef: any = useRef<HTMLDivElement>(null);
   const [content, setContent] = useState("");
   const [activeCommands, setActiveCommands] = useState<string[]>([]);
 
   const { insertPromptInput, insertApiResponse, simulateApiInsert, formatText, updateActiveCommands } =
-    useEditorCommands({ editorRef, setContent, setActiveCommands });
+    useEditorCommands({ editorRef, setContent, setActiveCommands, loading, setLoading });
 
   useSelectionEffect({ editorRef, updateActiveCommands });
 
@@ -36,8 +36,10 @@ function RichTextEditor() {
         activeCommands={activeCommands}
         apiTrigger={simulateApiInsert}
         insertPromptInput={handleGenerateClick}
+        loading={loading}
       />
       <EditorArea editorRef={editorRef} handleInput={handleInput} updateActiveCommands={updateActiveCommands} />
+      {loading ? <div className="loader">Thinking...</div> : <div>Not loading</div>}
       {/* <p className="overflow-auto break-words">HTML Output:</p>
       <pre>{content}</pre> */}
     </div>

@@ -23,9 +23,10 @@ interface ControllerProps {
   activeCommands: string[];
   apiTrigger: () => void;
   insertPromptInput: () => void;
+  loading: boolean;
 }
 
-const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput }: ControllerProps) => {
+const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput, loading }: ControllerProps) => {
   const isActive = (command: string) => activeCommands.includes(command);
   const fontSize = extractFontSizeFromArray(activeCommands);
   const fontName = extractFontNameFromArray(activeCommands);
@@ -114,11 +115,12 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput 
 
       <div>
         <button
+          disabled={loading}
           onClick={insertPromptInput}
           className="shiny-button bg-amber-400 flex items-center gap-1.5 text-white font-bold border-2 border-[#f5b039] py-1.5 pl-2.5 font-mono pr-3 rounded-full drop-shadow-xl hover:brightness-105 transition-all duration-200"
         >
           <img src="/ai.png" className="w-6" />
-          Generate
+          {loading ? "Generating" : "Generate"}
         </button>
       </div>
     </div>

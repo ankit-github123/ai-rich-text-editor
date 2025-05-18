@@ -1,16 +1,22 @@
+import { useState } from "react";
 import RichTextEditor from "./RTEContainer";
 import { AiTwotoneMessage } from "react-icons/ai";
 
 const RTEIndex = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <div className="w-full">
-      <div className="w-[55%] container mx-auto shadow-2xl rounded-lg border-2 border-[rgba(0,0,0,0.1)] relative -top-3.5">
+      <div
+        className={`w-[55%] container ${
+          !loading ? "generating" : ""
+        } mx-auto shadow-2xl rounded-lg border-2 border-[rgba(0,0,0,0.1)] relative -top-3.5`}
+      >
         <div className="title font-display text-lg font-bold px-0 pt-3 pb-2  w-[95%] mx-auto flex items-center gap-2">
           <AiTwotoneMessage />
           Rich Text Editor
         </div>
         <div className="divider"></div>
-        <RichTextEditor />
+        <RichTextEditor loading={loading} setLoading={setLoading} />
         <div className="flex justify-end gap-3 mt-4 mb-3 mx-8  text-[13px]">
           <button
             type="button"

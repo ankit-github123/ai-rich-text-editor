@@ -6,10 +6,14 @@ export default function useEditorCommands({
   editorRef,
   setContent,
   setActiveCommands,
+  loading,
+  setLoading,
 }: {
   editorRef: any;
   setContent: (content: string) => void;
   setActiveCommands: (commands: string[]) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }) {
   const updateActiveCommands = useCallback(() => {
     const commands = [
@@ -93,9 +97,16 @@ export default function useEditorCommands({
       if (e.key === "Enter") {
         e.preventDefault();
         const value = input.value;
-        const response = await getAIResponse(value);
-        console.log("API response:", response);
-        insertApiResponse(response as string);
+        setLoading(true);
+        input.disabled = true;
+        try {
+          const response = await getAIResponse(value);
+          console.log("API response:", response);
+          insertApiResponse(response as string);
+        } finally {
+          input.remove();
+          setLoading(false);
+        }
       }
     };
 
@@ -108,7 +119,7 @@ export default function useEditorCommands({
 
     setContent(editor.innerHTML);
     updateActiveCommands();
-  }, [editorRef, setContent, updateActiveCommands]);
+  }, [editorRef, setContent, updateActiveCommands, setLoading]);
 
   const insertApiResponse = useCallback(
     (htmlString: string) => {
@@ -116,21 +127,26 @@ export default function useEditorCommands({
       if (!editor) return;
       editor.focus();
 
-      const range = document.createRange();
-      range.selectNodeContents(editor);
-      range.collapse(false);
-
       const selection = window.getSelection();
-      selection?.removeAllRanges();
-      selection?.addRange(range);
+      const range = selection?.getRangeAt(0)?.cloneRange() || document.createRange();
 
+      range.collapse(false); // collapse to the end of the editor
       const fragment = range.createContextualFragment(htmlString);
+      const lastNode = fragment.lastChild;
+
       range.insertNode(fragment);
 
-      range.setStartAfter(fragment.lastChild!);
-      range.collapse(true);
-      selection?.removeAllRanges();
-      selection?.addRange(range);
+      if (lastNode) {
+        // Move cursor after the inserted content
+        const newRange = document.createRange();
+        newRange.setStartAfter(lastNode);
+        newRange.collapse(true);
+
+        selection?.removeAllRanges();
+        selection?.addRange(newRange);
+      } else {
+        selection?.removeAllRanges();
+      }
 
       setContent(editor.innerHTML);
       updateActiveCommands();
