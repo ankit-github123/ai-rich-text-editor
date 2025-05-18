@@ -1,7 +1,12 @@
 import { FaChevronDown } from "react-icons/fa";
 
-const CustomSelect = ({ options, value, onChange }) => {
-  console.log("value", value);
+interface CustomSelectProps {
+  options: { value: string; label: string }[];
+  value: string | number;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({ options, value, onChange }) => {
   return (
     <div className="relative w-fit flex items-center">
       <select

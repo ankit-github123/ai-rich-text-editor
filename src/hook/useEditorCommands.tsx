@@ -34,8 +34,6 @@ export default function useEditorCommands({
     const selection = document.getSelection();
     const fontSize = document.queryCommandValue("fontSize");
     const fontName = removeQuotes(document.queryCommandValue("fontName"));
-    console.log("Font size:", fontSize);
-    console.log("Font name:", fontName);
     if (fontSize) active.push(`fontSize-${fontSize}`);
     if (fontName) active.push(`fontName-${fontName.toString()}`);
 

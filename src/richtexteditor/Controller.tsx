@@ -17,6 +17,7 @@ import CustomSelect from "../custom/Select";
 import { useState } from "react";
 import { fontNames, fontSizes } from "../constants";
 import { extractFontNameFromArray, extractFontSizeFromArray } from "../utils";
+import Tooltip from "../custom/Tooltip";
 
 interface ControllerProps {
   formatText: (command: string, value?: string) => void;
@@ -30,7 +31,6 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
   const isActive = (command: string) => activeCommands.includes(command);
   const fontSize = extractFontSizeFromArray(activeCommands);
   const fontName = extractFontNameFromArray(activeCommands);
-  console.log("fontname", fontName);
   const handleFontSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const size = e.target.value;
     if (size) formatText("fontSize", size);
@@ -50,66 +50,80 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
           <CustomSelect options={fontSizes} value={fontSize} onChange={handleFontSizeChange} />
           <CustomSelect options={fontNames} value={fontName} onChange={handleFontNameChange} />
           <div className="border border-l my-1 border-[#e6e5e3]" />
-
-          <button
-            onClick={() => formatText("bold")}
-            className={`${buttonStyle} ${isActive("bold") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineBold />
-          </button>
-          <button
-            onClick={() => formatText("italic")}
-            className={`${buttonStyle} ${isActive("italic") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineItalic />
-          </button>
-          <button
-            onClick={() => formatText("underline")}
-            className={`${buttonStyle} ${isActive("underline") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineUnderline className="text-[17px] relative top-0.5" />
-          </button>
-
+          <Tooltip content="Bold" position="bottom">
+            <button
+              onClick={() => formatText("bold")}
+              className={`${buttonStyle} ${isActive("bold") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineBold />
+            </button>
+          </Tooltip>
+          <Tooltip content="Italic" position="bottom">
+            <button
+              onClick={() => formatText("italic")}
+              className={`${buttonStyle} ${isActive("italic") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineItalic />
+            </button>
+          </Tooltip>
+          <Tooltip content="Underline" position="bottom">
+            <button
+              onClick={() => formatText("underline")}
+              className={`${buttonStyle} ${isActive("underline") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineUnderline className="text-[17px] relative top-0.5" />
+            </button>
+          </Tooltip>
           <div className="border border-l my-1 border-[#e6e5e3]" />
-
-          <button
-            onClick={() => formatText("insertUnorderedList")}
-            className={`${buttonStyle} ${isActive("insertUnorderedList") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineUnorderedList />
-          </button>
-          <button
-            onClick={() => formatText("insertOrderedList")}
-            className={`${buttonStyle} ${isActive("insertOrderedList") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineOrderedList />
-          </button>
-
+          <Tooltip content={"Unordered List"} position="bottom">
+            <button
+              onClick={() => formatText("insertUnorderedList")}
+              className={`${buttonStyle} ${isActive("insertUnorderedList") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineUnorderedList />
+            </button>
+          </Tooltip>
+          <Tooltip content={"Ordered List"} position="bottom">
+            <button
+              onClick={() => formatText("insertOrderedList")}
+              className={`${buttonStyle} ${isActive("insertOrderedList") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineOrderedList />
+            </button>
+          </Tooltip>
           <div className="border border-l my-1 border-[#e6e5e3]" />
-          <button
-            onClick={() => formatText("justifyLeft")}
-            className={`${buttonStyle} ${isActive("justifyLeft") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineAlignLeft />
-          </button>
-          <button
-            onClick={() => formatText("justifyCenter")}
-            className={`${buttonStyle} ${isActive("justifyCenter") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineAlignCenter />
-          </button>
-          <button
-            onClick={() => formatText("justifyRight")}
-            className={`${buttonStyle} ${isActive("justifyRight") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <AiOutlineAlignRight />
-          </button>
-          <button
-            onClick={() => formatText("justifyFull")}
-            className={`${buttonStyle} ${isActive("justifyFull") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
-          >
-            <FiAlignJustify />
-          </button>
+          <Tooltip content={"Align Left"} position="bottom">
+            <button
+              onClick={() => formatText("justifyLeft")}
+              className={`${buttonStyle} ${isActive("justifyLeft") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineAlignLeft />
+            </button>
+          </Tooltip>
+          <Tooltip content={"Align Center"} position="bottom">
+            <button
+              onClick={() => formatText("justifyCenter")}
+              className={`${buttonStyle} ${isActive("justifyCenter") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineAlignCenter />
+            </button>
+          </Tooltip>
+          <Tooltip content={"Align Right"} position="bottom">
+            <button
+              onClick={() => formatText("justifyRight")}
+              className={`${buttonStyle} ${isActive("justifyRight") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <AiOutlineAlignRight />
+            </button>
+          </Tooltip>
+          <Tooltip content={"Align Justify"} position="bottom">
+            <button
+              onClick={() => formatText("justifyFull")}
+              className={`${buttonStyle} ${isActive("justifyFull") ? "bg-[#f9e1b7] w-[35px] h-[35px]" : ""}`}
+            >
+              <FiAlignJustify />
+            </button>
+          </Tooltip>
         </div>
       </div>
 
