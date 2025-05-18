@@ -1,33 +1,173 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
 @theme {
-    --font-display: "Open Sans", sans-serif;
-  }
+  --font-display: "Open Sans", sans-serif;
+}
 body {
-    background: #f5f5f5d0;
+  background: linear-gradient(135deg, #f8f9fc, #eef1f7);
 
-    height: 100vh;
-    margin: 0;
-    font-family: sans-serif;
-  }
-  
-  /* body {
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  /* background: linear-gradient(135deg, #f8f9fc, #eef1f7); */
+  background: white;
+}
+/* body {
     background-image: url('./assets/bg.jpg');
     background-size: cover;      
     background-position: center;  
     background-repeat: no-repeat; 
   } */
-  
 
-  .wordart {
-    font-size: 5rem;
-    font-weight: bold;
-    background: linear-gradient(45deg, #f7971e, #ffd200, #84fab0, #8fd3f4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
-    transform: rotate(-3deg) skewY(3deg);
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    user-select: none;
+.wordart {
+  font-size: 5rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #f7971e, #ffd200, #84fab0, #8fd3f4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  transform: rotate(-3deg) skewY(3deg);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  user-select: none;
+}
+
+.shiny-button {
+  position: relative;
+  padding: 6px 18px;
+  font-size: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #f5b039, #6e44ff);
+
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 0;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.shiny-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  z-index: 1;
+  animation: shine 2s infinite ease-in-out;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
   }
-  
+  100% {
+    left: 125%;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 22px;
+  background: linear-gradient(135deg, #f5b039, #6e44ff, #f7971e);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.divider {
+  height: 1px;
+  border: none;
+  background: linear-gradient(to right, #f5b039, #6e44ff);
+  opacity: 0.25; /* Makes it faint but styled */
+}
+
+.editor-input {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(109, 68, 255, 0.164);
+  box-shadow: 0 4px 30px rgba(110, 68, 255, 0.05);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.editor-input:focus {
+  border: 1px solid rgba(110, 68, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(164, 142, 255, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.editor-input::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #f5b039, #6e44ff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Base container styling */
+.container {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f7f3ff, #fffaf2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  padding: 0.4rem 0.4rem 0.6rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  transition: box-shadow 0.4s ease;
+}
+
+/* Generating Glow Effect */
+.container.generating {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Keyframes for pulsing glow */
+@keyframes glow-pulse {
+  0% {
+    box-shadow: 0 0 0px 0px rgba(165, 108, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(165, 108, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0px 0px rgba(165, 108, 255, 0.3);
+  }
+}
+
+/* Base button style */
+.control-button {
+  background-color: #ede9fe;
+  border: 1px solid #dcd4f7;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 9999px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.control-button:hover {
+  background-color: #ddd6fe; /* Brighter blue on hover */
+  transform: scale(1.08);
+}

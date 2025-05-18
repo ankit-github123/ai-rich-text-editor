@@ -1,11 +1,36 @@
 ul {
   list-style: initial;
-  left: 18px;
+  margin-left: 18px;
   position: relative;
 }
 
 ol {
   list-style: decimal;
-  left: 18px;
+  margin-left: 18px;
   position: relative;
+}
+
+select {
+  /* background: linear-gradient(to right, #f5b039, #6e44ff); */
+  color: black; /* or black depending on contrast */
+  padding: 3px 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-weight: normal;
+  font-size: 13px;
+  appearance: none; /* remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Option styling - limited */
+option {
+  background: white;
+  color: black;
+  padding: 2px !important;
 }
