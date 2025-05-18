@@ -62,6 +62,7 @@ function RichTextEditor({ loading, setLoading }: { loading: boolean; setLoading:
   }, []);
 
   const handleGenerateClick = () => {
+    setIsFocused(true);
     editorRef.current.focus();
     insertPromptInput();
   };
