@@ -1,10 +1,6 @@
 import {
-  AiOutlineApi,
   AiOutlineBold,
-  AiOutlineLink,
   AiOutlineOrderedList,
-  AiOutlineRedo,
-  AiOutlineUndo,
   AiOutlineItalic,
   AiOutlineUnderline,
   AiOutlineUnorderedList,
@@ -12,9 +8,8 @@ import {
   AiOutlineAlignCenter,
   AiOutlineAlignRight,
 } from "react-icons/ai";
-import { FiAlignJustify, FiZap } from "react-icons/fi";
+import { FiZap } from "react-icons/fi";
 import CustomSelect from "../custom/Select";
-import { useState } from "react";
 import { fontNames, fontSizes } from "../constants";
 import { extractFontNameFromArray, extractFontSizeFromArray } from "../utils";
 import Tooltip from "../custom/Tooltip";
@@ -32,7 +27,6 @@ interface ControllerProps {
 const Controller = ({
   formatText,
   activeCommands,
-  apiTrigger,
   insertPromptInput,
   loading,
   generatePrompt,
@@ -52,7 +46,6 @@ const Controller = ({
   };
   const buttonStyle = `bg-[#ede9fe] border border-[#dcd4f7] shadow-sm rounded-full w-[34px] h-[34px] flex items-center justify-center cursor-pointer transition-all duration-200 ease-in-out hover:bg-[#ddd6fe] hover:scale-[1.08]`;
   console.log("activeCommands", activeCommands);
-  const [selected, setSelected] = useState("one");
   return (
     <div className="flex justify-between items-center mx-[0px] sm:mx-[5px] md:mx-[15px] lg:mx-[22px] px-3 py-2 rounded-xl">
       <div className="flex-1 overflow-x-auto whitespace-nowrap pr-3 no-scrollbar  scrollbar-hide">

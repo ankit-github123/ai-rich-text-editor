@@ -1,6 +1,5 @@
 import { useState } from "react";
 import RichTextEditor from "./RTEContainer";
-import { AiTwotoneMessage } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 
 const RTEIndex = () => {

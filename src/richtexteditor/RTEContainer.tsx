@@ -7,7 +7,7 @@ import { getAIResponse } from "../api";
 
 function RichTextEditor({ loading, setLoading }: { loading: boolean; setLoading: (loading: boolean) => void }) {
   const editorRef: any = useRef<HTMLDivElement>(null);
-  const [content, setContent] = useState("");
+  const [, setContent] = useState("");
   const [activeCommands, setActiveCommands] = useState<string[]>([]);
   const [isFocused, setIsFocused] = useState(false);
   const [hasContent, setHasContent] = useState(false);

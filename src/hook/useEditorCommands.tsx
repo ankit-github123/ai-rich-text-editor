@@ -6,7 +6,6 @@ export default function useEditorCommands({
   editorRef,
   setContent,
   setActiveCommands,
-  loading,
   setLoading,
   setPromptInputValue,
 }: {

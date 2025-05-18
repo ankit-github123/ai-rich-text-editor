@@ -1,7 +1,26 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-const getTooltipPosition = (rect, position, spacing = 8, tooltipSize = { width: 0, height: 0 }) => {
+interface Rect {
+  top: number;
+  left: number;
+  bottom: number;
+  right: number;
+  width: number;
+  height: number;
+}
+
+interface TooltipSize {
+  width: number;
+  height: number;
+}
+
+const getTooltipPosition = (
+  rect: Rect,
+  position: "top" | "bottom" | "left" | "right",
+  spacing: number = 8,
+  tooltipSize: TooltipSize = { width: 0, height: 0 }
+): { top: number; left: number; transform: string } => {
   const scrollY = window.scrollY;
   const scrollX = window.scrollX;
 
@@ -31,13 +50,21 @@ const getTooltipPosition = (rect, position, spacing = 8, tooltipSize = { width: 
         transform: "translateY(-50%)",
       };
     default:
-      return {};
+      return { top: 0, left: 0, transform: "" };
   }
 };
 
-export default function Tooltip({ children, content, position = "top" }) {
-  const targetRef = useRef(null);
-  const tooltipRef = useRef(null);
+export default function Tooltip({
+  children,
+  content,
+  position = "top",
+}: {
+  children: React.ReactNode;
+  content: React.ReactNode;
+  position?: "top" | "bottom" | "left" | "right";
+}) {
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [coords, setCoords] = useState({ top: 0, left: 0, transform: "" });
 
