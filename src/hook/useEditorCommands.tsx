@@ -92,7 +92,7 @@ export default function useEditorCommands({
     input.type = "text";
     input.placeholder = "Type a prompt...";
     input.className =
-      "bg-transparent border-b border-[rgba(0,0,0,0.01)] outline-none text-sm placeholder:text-gray-400 w-[92%] px-1 py-0.5";
+      "bg-transparent border-b italic font-medium border-[rgba(0,0,0,0.01)] outline-none text-sm placeholder:text-gray-400 w-[92%] px-1 py-0.5 text-[#c63efc]";
     input.onkeydown = async (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -127,26 +127,26 @@ export default function useEditorCommands({
       if (!editor) return;
       editor.focus();
 
+      const range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+
       const selection = window.getSelection();
-      const range = selection?.getRangeAt(0)?.cloneRange() || document.createRange();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
 
-      range.collapse(false); // collapse to the end of the editor
-      const fragment = range.createContextualFragment(htmlString);
-      const lastNode = fragment.lastChild;
+      // Wrap the inserted content in a div with animation class
+      const wrapper = document.createElement("div");
+      wrapper.className = "fade-in";
+      wrapper.innerHTML = htmlString;
 
-      range.insertNode(fragment);
+      range.insertNode(wrapper);
 
-      if (lastNode) {
-        // Move cursor after the inserted content
-        const newRange = document.createRange();
-        newRange.setStartAfter(lastNode);
-        newRange.collapse(true);
-
-        selection?.removeAllRanges();
-        selection?.addRange(newRange);
-      } else {
-        selection?.removeAllRanges();
-      }
+      // Move cursor after the inserted content
+      range.setStartAfter(wrapper);
+      range.collapse(true);
+      selection?.removeAllRanges();
+      selection?.addRange(range);
 
       setContent(editor.innerHTML);
       updateActiveCommands();

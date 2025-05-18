@@ -30,7 +30,7 @@ function RichTextEditor({ loading, setLoading }: { loading: boolean; setLoading:
   };
   return (
     <div className="">
-      <button onClick={simulateApiInsert}>Insert API Response</button>
+      {/* <button onClick={simulateApiInsert}>Insert API Response</button> */}
       <Controller
         formatText={formatText}
         activeCommands={activeCommands}
@@ -39,7 +39,7 @@ function RichTextEditor({ loading, setLoading }: { loading: boolean; setLoading:
         loading={loading}
       />
       <EditorArea editorRef={editorRef} handleInput={handleInput} updateActiveCommands={updateActiveCommands} />
-      {loading ? <div className="loader">Thinking...</div> : <div>Not loading</div>}
+      {/* {loading ? <div className="loader">Thinking...</div> : <div>Not loading</div>} */}
       {/* <p className="overflow-auto break-words">HTML Output:</p>
       <pre>{content}</pre> */}
     </div>

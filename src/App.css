@@ -115,7 +115,7 @@ body {
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(135deg, #f5b039, #6e44ff);
+  /* background: linear-gradient(135deg, #f5b039, #6e44ff); */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -174,7 +174,7 @@ body {
 
 .fade-in {
   opacity: 0;
-  animation: fadeIn 0.6s ease forwards;
+  animation: fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn {
