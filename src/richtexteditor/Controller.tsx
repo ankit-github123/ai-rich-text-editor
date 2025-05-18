@@ -44,9 +44,9 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
   console.log("activeCommands", activeCommands);
   const [selected, setSelected] = useState("one");
   return (
-    <div className="flex justify-between items-center mx-[22px] px-3 py-2 rounded-xl">
-      <div>
-        <div className="flex gap-2.5 mt-3 mb-3">
+    <div className="flex justify-between items-center mx-[0px] sm:mx-[5px] md:mx-[15px] lg:mx-[22px] px-3 py-2 rounded-xl">
+      <div className="flex-1 overflow-x-auto whitespace-nowrap pr-3 no-scrollbar  scrollbar-hide">
+        <div id="controller" className="flex gap-2.5 mt-3 mb-3 w-max">
           <CustomSelect options={fontSizes} value={fontSize} onChange={handleFontSizeChange} />
           <CustomSelect options={fontNames} value={fontName} onChange={handleFontNameChange} />
           <div className="border border-l my-1 border-[#e6e5e3]" />
@@ -113,7 +113,7 @@ const Controller = ({ formatText, activeCommands, apiTrigger, insertPromptInput,
         </div>
       </div>
 
-      <div>
+      <div id="generative" className="flex-shrink-0 ml-4 mt-3 mb-3">
         <button
           disabled={loading}
           onClick={insertPromptInput}

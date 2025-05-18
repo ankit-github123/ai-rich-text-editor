@@ -7,7 +7,7 @@ const RTEIndex = () => {
   return (
     <div className="w-full">
       <div
-        className={`w-[55%] container ${
+        className={`w-[92%] md:w-[70%] lg:w-[55%] container ${
           loading ? "generating" : ""
         } mx-auto shadow-2xl rounded-lg border-2 border-[rgba(0,0,0,0.1)] relative -top-3.5`}
       >
@@ -17,7 +17,7 @@ const RTEIndex = () => {
         </div>
         <div className="divider"></div>
         <RichTextEditor loading={loading} setLoading={setLoading} />
-        <div className="flex justify-end gap-3 mt-4 mb-3 mx-8  text-[13px]">
+        <div className="flex justify-end gap-3 mt-4 mb-3 mx-2 md:mx-8  text-[13px]">
           <button
             type="button"
             className="text-[13px] shadow-lg border px-3 py-1 rounded-md text-[#333] border-[#ccc] bg-[#f0f0f0] "
