@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RichTextEditor from "./RTEContainer";
 import { AiTwotoneMessage } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 
 const RTEIndex = () => {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,11 @@ const RTEIndex = () => {
           </button>
         </div>
       </div>
+      <footer className="w-full flex justify-center mx-auto absolute bottom-0  py-3 mt-6 text-center text-[13px] text-[#a58bd1d2]  ">
+        <div className="flex gap-1.5 items-center border-none border-[#d7c8f1d2] pt-1 w-fit px-5">
+          Made with <FaHeart className="text-[13px]" /> by Ankit Kumar
+        </div>
+      </footer>
     </div>
   );
 };
